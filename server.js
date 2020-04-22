@@ -7,6 +7,8 @@ app.use(express.json())
 app.use(router)
 
 router.get('/', (req, res) => {
+    console.log(req.headers);
+    res.header({"custom-header": "Nuestro custom header"})
     res.send('Hi from get')
 })
 
