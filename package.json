@@ -1,0 +1,27 @@
+{
+  "name": "chatnode",
+  "version": "0.1.0",
+  "description": "Chat like telegram but so much better :) ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarioSalinas1605/chatAPI.git"
+  },
+  "keywords": [
+    "chat",
+    "telegram",
+    "server"
+  ],
+  "author": "Mario Salinas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MarioSalinas1605/chatAPI/issues"
+  },
+  "homepage": "https://github.com/MarioSalinas1605/chatAPI#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
