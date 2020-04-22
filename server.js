@@ -25,6 +25,8 @@ router.post('/', (req, res) => {
     
 })
 
+app.use('/app', express.static('public'))
+
 app.listen(3000, () => {
     console.log("Server running at http://localhost:3000");
 })
