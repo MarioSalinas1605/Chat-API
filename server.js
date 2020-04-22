@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
     console.log(req.query);
     console.log(req.body);
     if (req.query.error) {
-        response.error(req, res, "Post error simulation", 404)
+        response.error(req, res, "Post error", 404, 'This is a simulation')
     }else{
         response.success(req, res, "Post ok", 201)
     }
