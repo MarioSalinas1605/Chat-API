@@ -4,9 +4,13 @@ const response = require('../../network/response')
 const controller = require('./controller')
 
 router.get('/', (req, res) => {
-    console.log(req.headers);
-    res.header({ "custom-header": "Nuestro custom header" })
-    response.success(req, res, "Get ok", 200)
+    controller.getMessages()
+        .then(messageList => {
+            response.success(req, res, messageList, 200)
+        })
+        .catch(error => {
+            response.error(req, res, "Unexpected error", 500, e)
+        })
 })
 
 router.post('/', (req, res) => {
