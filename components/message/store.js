@@ -1,10 +1,12 @@
-const db = require('mongoose')
+const mongoose = require('mongoose')
+const db = mongoose.connection
 const Model = require('./model')
-db.Promise = global.Promise
-const mongoURI = 'mongodb+srv://admin:4321@cluster0-mxwrf.mongodb.net/telegrom?retryWrites=true&w=majority'
-db.connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
-console.log(`[db] Successful connection`);
 
+mongoose.Promise = global.Promise
+const mongoURI = 'mongodb+srv://admin:4321@cluster0-mxwrf.mongodb.net/telegrom?retryWrites=true&w=majority'
+mongoose.connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
+db.on('error', console.error.bind(console, '[db] connection error:'));
+db.once('open', () => console.log(`[db] Successful connection`));
 
 function addMessage(message) {
     console.log('[store] Saving message');

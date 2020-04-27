@@ -2,7 +2,7 @@ const store = require('./store')
 
 function addMessage(user, message) {
     return new Promise((resolve, reject) => {
-        if (!user || !user) {
+        if (!user || !message) {
             console.log("[messageController] We don't have user or message");
             return reject('Incorrect data')
         }
@@ -13,14 +13,23 @@ function addMessage(user, message) {
             date: new Date()
         }
 
-        store.add(fullMessage)
-        resolve(fullMessage)
+        try {
+            store.add(fullMessage)
+            resolve(fullMessage)
+        } catch (error) {
+            reject(error)    
+        }
     })
 }
 
 function getMessages() {
     return new Promise( (resolve, reject) => {
-        resolve(store.list())
+        try {
+            resolve(store.list())
+        } catch (error) {
+            reject(error)
+        }
+        
     })
 }
 
