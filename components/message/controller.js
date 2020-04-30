@@ -33,7 +33,25 @@ function getMessages() {
     })
 }
 
+function updateMessage(id, message) {
+    return new Promise((resolve, reject) => {
+
+        if (!id || !message) {
+            reject('Invalid data')
+            return false
+        }
+
+        try {
+            const result = store.updateText(id, message)
+            resolve(result)
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 module.exports = {
     addMessage,
-    getMessages
+    getMessages,
+    updateMessage
 }

@@ -8,10 +8,10 @@ mongoose.connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
 db.on('error', console.error.bind(console, '[db] connection error:'));
 db.once('open', () => console.log(`[db] Successful connection`));
 
-function addMessage(message) {
+async function addMessage(message) {
     console.log('[store] Saving message');
     const myMessage = new Model(message)
-    myMessage.save()
+    await myMessage.save()
 }
 
 async function getMessages() {
@@ -19,7 +19,15 @@ async function getMessages() {
     return messages
 }
 
+async function updateText(id, message) {
+    const foundMessage = await Model.findOne({_id: id})
+    foundMessage.message = message
+    const newMessage = await foundMessage.save()   
+    return newMessage
+}
+
 module.exports = {
     add: addMessage,
-    list: getMessages
+    list: getMessages,
+    updateText
 }

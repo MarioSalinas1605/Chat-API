@@ -23,5 +23,13 @@ router.post('/', async (req, res) => {
         response.error(req, res, "Post error", 400, 'Error in controller')
     }
 })
+router.patch('/:id', async (req, res) => {
+    try {
+        const data = await controller.updateMessage(req.params.id, req.body.message)
+        response.success(req, res, data, 200)
+    } catch (error) {
+        response.error(req, res, 'Error interno', 500, error)
+    }
+})
 
 module.exports = router
