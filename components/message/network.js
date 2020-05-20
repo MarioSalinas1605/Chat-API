@@ -4,9 +4,9 @@ const response = require('../../network/response')
 const controller = require('./controller')
 
 router.get('/', async (req, res) => {
-    console.log("[network] GET");
+    const filterMessages = req.query.user || null
     try {
-        let messageList = await controller.getMessages()
+        let messageList = await controller.getMessages(filterMessages)
         response.success(req, res, messageList, 200)
     } catch (error) {
         response.error(req, res, "Unexpected error", 500, error)

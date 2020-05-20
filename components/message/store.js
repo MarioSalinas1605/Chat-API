@@ -9,13 +9,13 @@ db.on('error', console.error.bind(console, '[db] connection error:'));
 db.once('open', () => console.log(`[db] Successful connection`));
 
 async function addMessage(message) {
-    console.log('[store] Saving message');
     const myMessage = new Model(message)
     await myMessage.save()
 }
 
-async function getMessages() {
-    const messages = await Model.find()
+async function getMessages(filterUser) {
+    const filter = filterUser ? { user: filterUser} : {}
+    const messages = await Model.find(filter)
     return messages
 }
 
