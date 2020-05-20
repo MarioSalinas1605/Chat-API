@@ -31,5 +31,13 @@ router.patch('/:id', async (req, res) => {
         response.error(req, res, 'Error interno', 500, error)
     }
 })
+router.delete('/:id', async (req, res) => {
+    try {
+        const data = await controller.deleteMessage(req.params.id)
+        response.success(req, res, `User ${req.params.id} deleted`, 200)
+    } catch (error) {
+        response.error(req, res, 'Error interno', 500, error)
+    }
+})
 
 module.exports = router
