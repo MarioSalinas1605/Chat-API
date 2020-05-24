@@ -5,21 +5,34 @@ async function addMessage(message) {
     await myMessage.save()
 }
 
-async function getMessages(filterUser) {
-    const filter = filterUser ? { user: filterUser} : {}
-    const messages = await Model.find(filter)
-    return messages
+function getMessages(filterUser) {
+    return new Promise((resolve, reject) => {
+        const filter = filterUser ? { user: filterUser } : {}
+        try {
+            Model.find(filter)
+                .populate('user')
+                .exec((error, populated) => {
+                    if (error) {
+                        reject(error)
+                        return false
+                    }
+                    resolve(populated)
+                })
+        } catch (error) {
+            reject(error)
+        }
+    })
 }
 
 async function updateText(id, message) {
-    const foundMessage = await Model.findOne({_id: id})
+    const foundMessage = await Model.findOne({ _id: id })
     foundMessage.message = message
-    const newMessage = await foundMessage.save()   
+    const newMessage = await foundMessage.save()
     return newMessage
 }
 
 async function removeMessage(id) {
-    let data = await Model.deleteOne({_id: id})
+    let data = await Model.deleteOne({ _id: id })
     return data
 }
 
