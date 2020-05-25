@@ -7,7 +7,7 @@ async function addMessage(message) {
 
 function getMessages(filterUser) {
     return new Promise((resolve, reject) => {
-        const filter = filterUser ? { user: filterUser } : {}
+        const filter = filterUser ? { chat: filterUser } : {}
         try {
             Model.find(filter)
                 .populate('user')

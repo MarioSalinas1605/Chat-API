@@ -1,7 +1,7 @@
 const store = require('./store')
 
 function addChat(users) {
-    if (!users) {
+    if (!users || !Array.isArray(users)) {
         return Promise.reject('Invalid users')
     }
     let usersInChat = {
@@ -10,8 +10,8 @@ function addChat(users) {
     return store.add(usersInChat)
 }
 
-function getChat() {
-    return store.get()
+function getChat(userId) {
+    return store.get(userId)
 }
 
 module.exports = {

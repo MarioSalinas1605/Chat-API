@@ -5,16 +5,21 @@ function addChat(users) {
     return myChat.save()
 }
 
-function getChat() {
+function getChat(userId) {
+    let filter = {}
+    if (userId) {
+        filter = { users: userId }
+    }
+
     return new Promise((resolve, reject) => {
-        Model.find()
+        Model.find(filter)
             .populate('users')
-            .exec((error, populate) => {
+            .exec((error, populated) => {
                 if (error) {
                     reject(error)
                     return false
                 }
-                resolve(populate)
+                resolve(populated)
             })
     })
 }

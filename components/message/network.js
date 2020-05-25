@@ -4,7 +4,7 @@ const response = require('../../network/response')
 const controller = require('./controller')
 
 router.get('/', async (req, res) => {
-    const filterMessages = req.query.user || null
+    const filterMessages = req.query.chat || null
     try {
         let messageList = await controller.getMessages(filterMessages)
         response.success(req, res, messageList, 200)
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
     console.log("[network] POST request body");
     console.log(req.body);
     try {
-        let fullMessage = await controller.addMessage(req.body.user, req.body.message)
+        let fullMessage = await controller.addMessage(req.body.chat, req.body.user, req.body.message)
         response.success(req, res, fullMessage, 201)
     } catch (error) {
         response.error(req, res, "Post error", 400, 'Error in controller')

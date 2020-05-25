@@ -12,9 +12,9 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.get('/', async (req, res) => {
+router.get('/:userId', async (req, res) => {
     try {
-        let data = await controller.getChat()
+        let data = await controller.getChat(req.params.userId)
         response.success(req, res, data, 200)
     } catch (error) {
         response.error(error)
