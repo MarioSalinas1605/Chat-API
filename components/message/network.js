@@ -1,7 +1,12 @@
 const express = require('express')
+const multer = require('multer')
 const router = express.Router()
 const response = require('../../network/response')
 const controller = require('./controller')
+
+const upload = multer({
+    dest: 'public/files/'
+})
 
 router.get('/', async (req, res) => {
     const filterMessages = req.query.chat || null
@@ -13,11 +18,11 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', upload.single('file'), async (req, res) => {
     console.log("[network] POST request body");
     console.log(req.body);
     try {
-        let fullMessage = await controller.addMessage(req.body.chat, req.body.user, req.body.message)
+        let fullMessage = await controller.addMessage(req.body.chat, req.body.user, req.body.message, req.file)
         response.success(req, res, fullMessage, 201)
     } catch (error) {
         response.error(req, res, "Post error", 400, 'Error in controller')
